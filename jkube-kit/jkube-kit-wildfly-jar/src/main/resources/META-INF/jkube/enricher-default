@@ -1,2 +1,3 @@
-# Healthcheck Enrichers
+# Healthcheck and DNS ping service Enrichers
+org.eclipse.jkube.wildfly.jar.enricher.WildflyJARDNSPingEnricher
 org.eclipse.jkube.wildfly.jar.enricher.WildflyJARHealthCheckEnricher

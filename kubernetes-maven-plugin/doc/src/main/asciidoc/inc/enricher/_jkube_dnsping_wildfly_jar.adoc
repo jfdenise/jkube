@@ -1,0 +1,51 @@
+
+[[jkube-dns-ping-wildfly-jar]]
+==== jkube-dns-ping-wildfly-jar
+
+This enricher generates an headless service needed for WildFly server to form a cluster when using jgroups _dns.DNS_PING_ protocol.
+This enricher looks for the presence of _dns.DNS_PING_ in the _<cloud><jgroups-ping-protocol>_ 
+element value of the WildFly bootable JAR plugin configuration.
+
+The generated headless service is named _<application name>-ping_ by default. 
+You can override this name thanks to the enricher configuration.
+The application service selectors are injected into the generated headless service 
+in order for the application pods to be selected. This allows the cluster members to discover each others.
+
+The enricher will use the following settings by default:
+
+- pingServiceName = By default, generated based on `<application name>-ping`
+- disableServiceGeneration = `false`
+- applicationServiceName = No default value, the first encountered service is used.
+
+In case multiple application services are in context, `applicationServiceName` 
+allows to identify the service for which we want to generate the headless service.
+
+These values can be configured by the enricher in the `{plugin}` configuration as shown below:
+[source,xml,indent=0,subs="verbatim,quotes,attributes"]
+----
+      <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>{plugin}</artifactId>
+        <version>{version}</version>
+        <executions>
+          <execution>
+            <id>jkube</id>
+            <goals>
+              <goal>resource</goal>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <enricher>
+            <config>
+              <jkube-dns-ping-wildfly-jar>
+                <pingServiceName>my-ping-service</pingServiceName>
+                <disableServiceGeneration>true</disableServiceGeneration>
+                <applicationServiceName>myapp2</applicationServiceName>
+              </jkube-dns-ping-wildfly-jar>
+            </config>
+          </enricher>
+        </configuration>
+      </plugin>
+----

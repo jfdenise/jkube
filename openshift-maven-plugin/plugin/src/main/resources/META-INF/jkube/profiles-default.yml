@@ -63,6 +63,8 @@
     - jkube-healthcheck-micronaut
     - jkube-prometheus
 
+    - jkube-dns-ping-wildfly-jar
+
     # Value merge enrichers
     - jkube-container-env-java-options
 

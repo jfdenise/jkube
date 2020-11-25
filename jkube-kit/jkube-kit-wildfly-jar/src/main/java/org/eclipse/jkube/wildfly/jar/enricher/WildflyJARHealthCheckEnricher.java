@@ -39,6 +39,7 @@ import org.eclipse.jkube.kit.config.resource.PlatformMode;
  */
 public class WildflyJARHealthCheckEnricher extends AbstractHealthCheckEnricher {
 
+    public static final String CLOUD_ELEMENT = "cloud";
     public static final String BOOTABLE_JAR_GROUP_ID = "org.wildfly.plugins";
     public static final String BOOTABLE_JAR_ARTIFACT_ID = "wildfly-jar-maven-plugin";
 
@@ -131,7 +132,7 @@ public class WildflyJARHealthCheckEnricher extends AbstractHealthCheckEnricher {
             return false;
         }
         Map<String, Object> config = plugin.getConfiguration();
-        return config.containsKey("cloud");
+        return config.containsKey(CLOUD_ELEMENT);
     }
 
     protected int getFailureThreshold() {
