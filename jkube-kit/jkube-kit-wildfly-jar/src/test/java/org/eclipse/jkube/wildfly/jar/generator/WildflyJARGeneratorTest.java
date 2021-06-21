@@ -97,13 +97,13 @@ public class WildflyJARGeneratorTest {
             assertNotNull(extraOptions);
             assertEquals(2, extraOptions.size());
             assertEquals("-Djava.net.preferIPv4Stack=true", extraOptions.get(0));
-            assertEquals("-Dmaven.repo.local=/deployments/myrepo", extraOptions.get(1));
+            assertEquals("-Dmaven.repo.local=/deployments/server-maven-repo", extraOptions.get(1));
             List<AssemblyFileSet> files = generator.addAdditionalFiles();
             assertFalse(files.isEmpty());
             AssemblyFileSet set = files.get(files.size() - 1);
-            assertEquals(targetDir.toFile(), set.getDirectory());
+            assertEquals(repoDir.toFile(), set.getDirectory());
             assertEquals(1, set.getIncludes().size());
-            assertEquals("myrepo", set.getIncludes().get(0));
+            assertEquals("**", set.getIncludes().get(0));
         } finally {
             Files.delete(repoDir);
             Files.delete(targetDir);
@@ -129,13 +129,13 @@ public class WildflyJARGeneratorTest {
             assertNotNull(extraOptions);
             assertEquals(2, extraOptions.size());
             assertEquals("-Djava.net.preferIPv4Stack=true", extraOptions.get(0));
-            assertEquals("-Dmaven.repo.local=/deployments/myrepo", extraOptions.get(1));
+            assertEquals("-Dmaven.repo.local=/deployments/server-maven-repo", extraOptions.get(1));
             List<AssemblyFileSet> files = generator.addAdditionalFiles();
             assertFalse(files.isEmpty());
             AssemblyFileSet set = files.get(files.size() - 1);
-            assertEquals(targetDir.toFile(), set.getDirectory());
+            assertEquals(repoDir.toFile(), set.getDirectory());
             assertEquals(1, set.getIncludes().size());
-            assertEquals("myrepo", set.getIncludes().get(0));
+            assertEquals("**", set.getIncludes().get(0));
         } finally {
             Files.delete(repoDir);
             Files.delete(targetDir);
@@ -160,7 +160,7 @@ public class WildflyJARGeneratorTest {
             assertNotNull(extraOptions);
             assertEquals(2, extraOptions.size());
             assertEquals("-Djava.net.preferIPv4Stack=true", extraOptions.get(0));
-            assertEquals("-Dmaven.repo.local=/deployments/myrepo", extraOptions.get(1));
+            assertEquals("-Dmaven.repo.local=/deployments/server-maven-repo", extraOptions.get(1));
             Exception result = assertThrows(Exception.class, () -> {
                 generator.addAdditionalFiles();
                 fail("Test should have failed, no directory for maven repo");
@@ -228,7 +228,7 @@ public class WildflyJARGeneratorTest {
         assertNotNull(extraOptions);
         assertEquals(2, extraOptions.size());
         assertEquals("-Djava.net.preferIPv4Stack=true", extraOptions.get(0));
-        assertEquals("-Dmaven.repo.local=/deployments/myrepo", extraOptions.get(1));
+        assertEquals("-Dmaven.repo.local=/deployments/server-maven-repo", extraOptions.get(1));
     }
     
     private GeneratorContext contextForSlimServer(JavaProject project, Map<String, Object> bootableJarconfig, Path dir) {
