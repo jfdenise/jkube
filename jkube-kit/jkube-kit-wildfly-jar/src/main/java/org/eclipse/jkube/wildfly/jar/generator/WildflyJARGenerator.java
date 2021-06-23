@@ -169,7 +169,8 @@ public class WildflyJARGenerator extends JavaExecGenerator {
         }
         Map<String, String> ret = new HashMap<>();
         if (!properties.isEmpty()) {
-            ret.put(JAVA_OPTIONS, StringUtils.join(properties.iterator(), " "));
+            // Use JAVA_OPTS in order to convey the local repo location to all JBoss scripts (CLI, ...) present in the image
+            ret.put("JAVA_OPTS", StringUtils.join(properties.iterator(), " "));
         }
         return ret;
     }
